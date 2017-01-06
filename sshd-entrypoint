@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+[ -z "${ROOT_SSH_PASS}"] && echo "Please specify environment variable ROOT_SSH_PASS" && exit 1
+
+/usr/bin/ssh-keygen -A
+echo "root:${ROOT_SSH_PASS}" | chpasswd
+
+/usr/sbin/sshd
+
+httpd-foreground
